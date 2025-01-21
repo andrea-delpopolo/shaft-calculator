@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spearfishing Shaft Volume Comparison</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Spearfishing Shaft Weigth Comparison</h1>
+
+    <h4>
+      <p>
+        This tool compares the volume of spearfishing shfts with different
+        diameters and lengths.
+        <i>* It assumes that each shaft's steel has the same density</i>
+      </p>
+    </h4>
+
+    <form id="shaft-form">
+      <label for="default-diameter">Default Diameter (mm):</label>
+      <input type="number" id="default-diameter" step="0.1" required />
+
+      <label for="default-length">Default Length (cm):</label>
+      <input type="number" id="default-length" step="0.1" required />
+
+      <label for="shaft-diameter">New Shaft Diameter (mm):</label>
+      <input type="number" id="shaft-diameter" step="0.1" required />
+
+      <label for="shaft-length">New Shaft Length (cm):</label>
+      <input type="number" id="shaft-length" step="0.1" required />
+
+      <button type="button" onclick="addToTable()">Add to Table</button>
+    </form>
+
+    <table id="results-table" class="results-table">
+      <thead>
+        <tr>
+          <th>Default Diameter (mm)</th>
+          <th>Default Length (cm)</th>
+          <th>New Diameter (mm)</th>
+          <th>New Length (cm)</th>
+          <th>Relative Increase (%)</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      function calculateVolume(diameter, length) {
+        const radius = diameter / 2; // Convert diameter to radius in mm
+        const lengthMm = length * 10; // Convert length to mm
+        return Math.PI * Math.pow(radius, 2) * lengthMm; // Volume in mm³
+      }
+
+      function addToTable() {
+        const defaultDiameter = parseFloat(
+          document.getElementById("default-diameter").value
+        );
+        const defaultLength = parseFloat(
+          document.getElementById("default-length").value
+        );
+        const shaftDiameter = parseFloat(
+          document.getElementById("shaft-diameter").value
+        );
+        const shaftLength = parseFloat(
+          document.getElementById("shaft-length").value
+        );
+
+        if (
+          !defaultDiameter ||
+          !defaultLength ||
+          !shaftDiameter ||
+          !shaftLength
+        ) {
+          alert("Please fill out all fields.");
+          return;
+        }
+
+        const defaultVolume = calculateVolume(defaultDiameter, defaultLength);
+        const shaftVolume = calculateVolume(shaftDiameter, shaftLength);
+        const increase = ((shaftVolume - defaultVolume) / defaultVolume) * 100;
+
+        const tableBody = document.querySelector("#results-table tbody");
+        const newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+        <td>${defaultDiameter.toFixed(1)}</td>
+        <td>${defaultLength.toFixed(1)}</td>
+        <td>${shaftDiameter.toFixed(1)}</td>
+        <td>${shaftLength.toFixed(1)}</td>
+        <td>${increase.toFixed(2)}</td>
+        <td><button class="remove-btn" onclick="removeRow(this)">Remove</button></td>
+    `;
+
+        const rows = Array.from(tableBody.querySelectorAll("tr"));
+        rows.push(newRow);
+        rows.sort(
+          (a, b) =>
+            parseFloat(a.cells[4].textContent) -
+            parseFloat(b.cells[4].textContent)
+        );
+
+        tableBody.innerHTML = "";
+        rows.forEach((row) => tableBody.appendChild(row));
+      }
+
+      function removeRow(button) {
+        const row = button.parentElement.parentElement;
+        row.remove();
+      }
+    </script>
+  </body>
+</html>
