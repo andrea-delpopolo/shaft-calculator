@@ -1,5 +1,7 @@
 # Spearfishing Shaft Weight Comparison Tool
 
+Also known as: `Shafty` for friends
+
 This project is a simple web-based tool to compare the volume of spearfishing shafts with different diameters and lengths. It helps spearfishers optimize their gear choices by calculating the relative volume increase between shafts.
 
 ## Features
