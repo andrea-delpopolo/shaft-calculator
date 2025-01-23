@@ -3,19 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spearfishing Shaft Volume Comparison</title>
+    <title>Spearfishing Shaft Weight Comparison</title>
     <meta
       name="description"
       content="Compare the weight of spearfishing shafts with different diameters and lengths to optimize your gear setup choices."
     />
-    <link rel="stylesheet" href="styles.min.css" />
+    <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <script src="https://apis.google.com/js/platform.js"></script>
   </head>
   <body>
-    <h1>Spearfishing Shaft Weigth Comparison</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="spearfishing.html">Spearfishing Shafts</a></li>
+      </ul>
+    </nav>
+    <h1>Spearfishing Shaft Weight Comparison</h1>
 
     <h2>
-      This tool compares the volume of spearfishing shfts with different
+      This tool compares the volume of spearfishing shafts with different
       diameters and lengths.
     </h2>
 
@@ -42,8 +49,8 @@
           <th>Default Length (cm)</th>
           <th>New Diameter (mm)</th>
           <th>New Length (cm)</th>
-          <th>Relative Increase (%)</th>
-          <th>Action</th>
+          <th>Diff (%)</th>
+          <th>Remove</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -55,11 +62,17 @@
 
     <footer>
       <p>
-        Made with 💙 by
+        Prompted to AI with 💙 by
         <a href="https://bit.ly/arielspearfishingteam" target="_blank">
           Ariel Spearfishing Team 🧜‍♀️
         </a>
       </p>
+      <div
+        class="g-ytsubscribe"
+        data-channelid="UCkU9486guTACXWFdlzc4FYA"
+        data-layout="full"
+        data-count="default"
+      ></div>
     </footer>
 
     <script>
@@ -106,7 +119,7 @@
         <td>${shaftDiameter.toFixed(1)}</td>
         <td>${shaftLength.toFixed(1)}</td>
         <td>${increase.toFixed(2)}</td>
-        <td><button class="remove-btn" onclick="removeRow(this)">Remove</button></td>
+        <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
     `;
 
         const rows = Array.from(tableBody.querySelectorAll("tr"));
